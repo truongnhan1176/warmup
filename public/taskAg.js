@@ -37,7 +37,6 @@ function mainController($scope, $http) {
     };
      $scope.editTodo = function(id) {
         $scope.formData._id=id;
-        $scope.formData.editnote=$('#editnote').val();
         $http.post('/api/edit', $scope.formData)
             .success(function(data) {
                 $scope.formData = {}; 

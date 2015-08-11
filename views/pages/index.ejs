@@ -74,13 +74,13 @@
 	               
                 	<div class="col-sm-4 col-md-4">
                 	
-                   <h2 ng-dblclick="todo.editnode=true" title="double Click to change" ng-show="!todo.editnode" >{{todo.notes}}</h2>
+                   <h2 ng-dblclick="todo.editnode=true;formData.editnote=todo.notes;" title="double Click to change" ng-show="!todo.editnode" >{{todo.notes}}</h2>
                    <div ng-show="todo.editnode">
 	                   <form style="margin-top:20px;" ng-submit="editTodo(todo._id)">
 	                    <div class="form-group">
 
 	                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-	                        <input id="editnote" type="text" class="form-control input-lg text-center" value="{{todo.notes}}"  placeholder="{{todo.notes}}">
+	                        <input id="editnote" type="text" class="form-control input-lg text-center" value="{{todo.notes}}"  placeholder="{{todo.notes}}" ng-model="formData.editnote">
 	                    </div>
 	                	</form>
                 	</div>
