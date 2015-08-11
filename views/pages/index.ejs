@@ -1,0 +1,121 @@
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="renTask">
+<head >
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Task Management</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+    <style>
+        html                    { overflow-y:scroll; }
+        body                    { padding-top:50px; }
+        #todo-list              { margin-bottom:30px; }
+    </style>
+
+    <!-- SPELLS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+    <script src="taskAg.js"></script>
+
+</head>
+<!-- SET THE CONTROLLER AND GET ALL tasks -->
+<body ng-controller="mainController" background="images/bg1.jpg">
+    <div class="container">
+
+        <!-- HEADER AND TODO COUNT -->
+        <div class=" text-center">
+            <h5>Your have {{ tasks.length }} Task<span class="label label-info"></span></h5>
+        </div>
+          <!-- FORM TO CREATE tasks -->
+        <div id="todo-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <form>
+                    <div class="form-group">
+
+                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                        <input type="text" class="form-control input-lg text-center" placeholder="Create New Task" ng-model="formData.note">
+                    </div>
+
+                    <!-- createToDo() WILL CREATE NEW tasks -->
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Ask Tasks</button>
+                </form>
+            </div>
+        </div>
+        <!-- TODO LIST -->
+        <div class="row">
+        
+        </div>
+        <div id="todo-list" style="text-align:center;color:#112233;text-color:#ff1122;" class="row">
+            
+        		 <div class="row">
+
+                	<div class="col-sm-4 col-md-4">
+               
+                   <h4>Title</h4>
+                   </div>
+                   <div class="col-sm-3 col-md-3">
+                   <h4> Time </h4>
+                   </div>
+                   <div class="col-sm-2 col-md-2">
+	                	<h4>Status</h4>
+	                </div>
+                   <div class="col-sm-2 col-md-2">
+                  	<h4> Action </h4>
+                   </div>
+                 </div>
+               
+                <div class="checkbox" ng-repeat="todo in tasks" ng-if="show==0||show==todo.is_done">
+                <div class="row">
+	               
+                	<div class="col-sm-4 col-md-4">
+                	
+                   <h2 ng-dblclick="todo.editnode=true" title="double Click to change" ng-show="!todo.editnode" >{{todo.notes}}</h2>
+                   <div ng-show="todo.editnode">
+	                   <form style="margin-top:20px;" ng-submit="editTodo(todo._id)">
+	                    <div class="form-group">
+
+	                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+	                        <input id="editnote" type="text" class="form-control input-lg text-center" value="{{todo.notes}}"  placeholder="{{todo.notes}}">
+	                    </div>
+	                	</form>
+                	</div>
+                   <div class="check-element animate-hide" ng-show="checked">
+						    <span class="glyphicon glyphicon-thumbs-up"></span> I show up when your checkbox is checked.
+						  </div>
+                   </div>
+                   <div class="col-sm-3 col-md-3">
+                   <h5 style="margin-top:30px;">{{todo.date_created}}</h5>
+                   </div>
+                    <div  class="col-sm-2 col-md-2">
+                    	<h3 title="double click to change status" ng-dblclick="editstatusTodo(todo._id,!todo.is_done)"  ng-show="todo.is_done">Completed</h3>
+                    	<h3 title="double click to change status" ng-dblclick="editstatusTodo(todo._id,!todo.is_done)" ng-show="!todo.is_done" >Remaining</h3>
+	                	
+	                	
+	                </div>
+                   <div class="col-sm-2 col-md-2">
+                  	<button style="margin-top:20px;" ng-click="deleteTodo(todo._id)" class="btn btn-danger" >Delete</button>
+
+                   </div>
+                 </div>
+
+                </div>
+
+            </div>
+        </div>
+
+      
+
+    </div>
+<script type="text/javascript">
+	var divdbl = $( "div:first" );
+		divdbl.dblclick(function() {
+		  divdbl.toggleClass( "dbl" );
+		});
+</script>
+</body>
+</html>
